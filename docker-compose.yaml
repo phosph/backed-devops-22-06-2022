@@ -25,7 +25,7 @@ services:
     build:
       context: .
       dockerfile: be.Dockerfile
-    command: python backendDevopsChallenge/manage.py runserver be:8000
+    command: python manage.py runserver be:8000
     volumes:
       - ./backend:/code
     ports:
