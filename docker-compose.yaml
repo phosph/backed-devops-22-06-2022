@@ -16,10 +16,10 @@ services:
       - 5672:5672
       - 15672:15672
     volumes:
-        - ./backend/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ./backend/.docker-conf/rabbitmq/log/:/var/log/rabbitmq/
+      - ./backend/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./backend/.docker-conf/rabbitmq/log/:/var/log/rabbitmq/
     networks:
-        - rabbitmq_go_net
+      - rabbitmq_go_net
 
   be:
     build:
@@ -39,6 +39,7 @@ services:
     depends_on:
       # - db
       - rabbitmq
+      - celery
 
   web:
     build:
@@ -48,6 +49,21 @@ services:
       - ./front-end:/code
     ports:
       - '3000:3000'
+
+  celery:
+    restart: always
+    build:
+      context: .
+      dockerfile: be.Dockerfile
+    command: celery -A backendDevopsChallenge worker -l info
+    volumes:
+      - ./backend:/code
+    depends_on:
+      # - db
+      - rabbitmq
+      - be
+    networks:
+      - rabbitmq_go_net
 
 networks:
   rabbitmq_go_net:
