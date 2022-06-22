@@ -1,0 +1,54 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+        - ./backend/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ./backend/.docker-conf/rabbitmq/log/:/var/log/rabbitmq/
+    networks:
+        - rabbitmq_go_net
+
+  be:
+    build:
+      context: .
+      dockerfile: be.Dockerfile
+    command: python backendDevopsChallenge/manage.py runserver be:8000
+    volumes:
+      - ./backend:/code
+    ports:
+      - '8000:8000'
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - rabbitmq_go_net
+    depends_on:
+      # - db
+      - rabbitmq
+
+  web:
+    build:
+      context: .
+      dockerfile: fe.Dockerfile
+    volumes:
+      - ./front-end:/code
+    ports:
+      - '3000:3000'
+
+networks:
+  rabbitmq_go_net:
+    # driver: bridge
