@@ -1,8 +1,6 @@
 """Models Module"""
 
-# from typing import Type, Union
 from django.contrib.auth.models import AbstractBaseUser
-# from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -14,7 +12,6 @@ class UserManager(BaseUserManager):
     """
     User model Manager
     """
-    # TODO: handle muti emails
 
     def _create_user(
             self,
@@ -27,19 +24,17 @@ class UserManager(BaseUserManager):
         """
         if not username:
             raise ValueError("The given username must be set")
-        # email = self.normalize_email(email)
-        # _email_list = [
-        #     e for 
-        # ]
-        # if email_list is not None:
-        #     pass
 
         username = AbstractBaseUser.normalize_username(username)
-
         user = self.model(username=username, **extra_fields)
 
         user.set_password(password)
         user.save(using=self._db)
+
+        if email_list is not None:
+            for email in email_list:
+                em = Email(email=email, user=user)
+                em.save()
 
         return user
 
@@ -97,10 +92,12 @@ class Email(models.Model):
     """
     Email Model
     """
-    created = models.DateTimeField(auto_now_add=True)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="email_list")
+        User,
+        on_delete=models.CASCADE,
+        related_name="email_list"
+    )
 
     class Meta:
-        ordering = ['created']
+        ordering = ['email']

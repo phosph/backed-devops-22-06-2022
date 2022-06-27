@@ -9,6 +9,7 @@ celery = "==5.2"
 django-celery-results = "*"
 django-cors-headers = "*"
 djangorestframework = "*"
+django-rest-knox = "*"
 
 [dev-packages]
 pylint = "*"

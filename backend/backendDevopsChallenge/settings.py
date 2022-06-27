@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'django_celery_results',
     "corsheaders",
     'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
     'authentication',
+    'knox',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -155,7 +157,11 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.TokenAuthentication'
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'knox.auth.TokenAuthentication',
+    ),
 }
 
 AUTH_USER_MODEL = 'authentication.User'
