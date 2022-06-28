@@ -17,12 +17,11 @@
     "jsx": "react-jsx",
     "experimentalDecorators": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@store/*": [
-        "./src/store/*"
-      ],
+      "@/*": ["./src/*"],
+      "@store/*": ["./src/store/*"],
+      "@components/*": ["./src/components/*"],
+      "@views/*": ["./src/views/*"],
+      "@shared/*": ["./src/shared/*"],
     },
   },
   "include": ["src"],
