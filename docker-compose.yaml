@@ -5,15 +5,6 @@ volumes:
   rabbitmq-log:
 
 services:
-  db:
-    image: postgres
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
@@ -32,50 +23,42 @@ services:
 
   be:
     build:
-      context: .
-      dockerfile: be.Dockerfile
+      context: ./backend
+      dockerfile: ./Dockerfile
     command: python manage.py runserver be:8000
     volumes:
       - ./backend:/code
     ports:
       - '8000:8000'
-    # environment:
-    #   - POSTGRES_NAME=postgres
-    #   - POSTGRES_USER=postgres
-    #   - POSTGRES_PASSWORD=postgres
     networks:
       - rabbitmq_go_net
     depends_on:
-      # - db
       - rabbitmq
       - celery
 
   web:
     build:
-      context: .
-      dockerfile: fe.Dockerfile
+      context: ./front-end
+      dockerfile: ./Dockerfile
     volumes:
-      - ./front-end:/code
+      - ./front-end/dist:/usr/share/nginx/html
     ports:
-      - '3000:3000'
+      - '3000:80'
 
   celery:
     restart: always
     build:
-      context: .
-      dockerfile: be.Dockerfile
+      context: ./backend
+      dockerfile: ./Dockerfile
     command: celery -A backendDevopsChallenge worker -l info
     volumes:
       - ./backend:/code
     environment:
       - RABBITMQ_BROKER_URL=amqp://rabb:rabb@rabbitmq:5672
     depends_on:
-      # - db
       - rabbitmq
-      # - be
     networks:
       - rabbitmq_go_net
 
 networks:
   rabbitmq_go_net:
-    # driver: bridge
