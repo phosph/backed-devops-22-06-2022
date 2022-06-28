@@ -1,0 +1,235 @@
+_type: export
+__export_format: 4
+__export_date: 2022-06-28T01:50:04.667Z
+__export_source: insomnia.desktop.app:v2021.3.0
+resources:
+  - _id: req_69aad7fa025c4094910e350ef62c61f3
+    parentId: fld_a0f316c89e2d40e586a5ef81ce05d5e4
+    modified: 1656357344805
+    created: 1656344076589
+    url: "{{ _.url }}user/"
+    name: current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        value: Token {{ _.auth_token }}
+        description: ""
+        id: pair_79920a0bd8994e63839970cc38711e73
+    authentication: {}
+    metaSortKey: -1656344076589
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_a0f316c89e2d40e586a5ef81ce05d5e4
+    parentId: wrk_2232dfe872b048e8bbd3b6c4f6f4880c
+    modified: 1656344071239
+    created: 1656344071239
+    name: user
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1656344071239
+    _type: request_group
+  - _id: wrk_2232dfe872b048e8bbd3b6c4f6f4880c
+    parentId: null
+    modified: 1656343520574
+    created: 1656343520574
+    name: My Collection
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_dfaf15a73fe4460b90676ce7e5d05543
+    parentId: fld_a0f316c89e2d40e586a5ef81ce05d5e4
+    modified: 1656377000745
+    created: 1656357337536
+    url: "{{ _.url }}user/"
+    name: update current user
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username": "j-ed",
+        	"email_list": [
+        		{
+        			"email": "jafigueredo2@gmail.com"
+        		},
+        		{
+        			"id": 7,
+        			"email": "jafigueredo@gmail.com"
+        		},
+        		{
+        			"id": 6,
+        			"email": "idk@gmail.com"
+        		}
+        	]
+        }
+    parameters: []
+    headers:
+      - name: Authorization
+        value: Token {{ _.auth_token }}
+        description: ""
+        id: pair_79920a0bd8994e63839970cc38711e73
+      - name: Content-Type
+        value: application/json
+        id: pair_5c24708ce63240cf8975c71337df7dc7
+    authentication: {}
+    metaSortKey: -1656343834848.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9c594ab4db3b46eb9f7cc5be54f8e81c
+    parentId: fld_eb8de1a856c444259cd5fb7d4f5c2c8f
+    modified: 1656347407480
+    created: 1656347142098
+    url: "{{ _.url }}auth/logout/"
+    name: logout
+    description: ""
+    method: POST
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        value: Token {{ _.auth_token }}
+        description: ""
+        id: pair_0a332cbc77254ae2bad0209b8cf5e5af
+    authentication: {}
+    metaSortKey: -1656347142098
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_eb8de1a856c444259cd5fb7d4f5c2c8f
+    parentId: wrk_2232dfe872b048e8bbd3b6c4f6f4880c
+    modified: 1656343588633
+    created: 1656343588633
+    name: auth
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1656343588633
+    _type: request_group
+  - _id: req_9705814d35b947d4a29aea9f68784edc
+    parentId: fld_eb8de1a856c444259cd5fb7d4f5c2c8f
+    modified: 1656362733268
+    created: 1656343593108
+    url: "{{ _.url }}auth/login/"
+    name: login
+    description: ""
+    method: POST
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: jesus-em4
+      password: jooj123--
+    metaSortKey: -1656343593108
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9dc44478c209459c8807cb5b7f48cf92
+    parentId: fld_eb8de1a856c444259cd5fb7d4f5c2c8f
+    modified: 1656377830120
+    created: 1656349765604
+    url: "{{ _.url }}auth/signup/"
+    name: sign up
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"data": {
+        	"username": "jesus-em7",
+        	"password": "jooj123--"
+        	},
+        	"email_list": [
+        		{
+        			"main": true,
+        			"email": "jafigueredo7@gmail.com"
+        		}
+        	]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_5d7f2ac5357b413cbe05f8c92da36207
+    authentication: {}
+    metaSortKey: -1656343593058
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_99c88d98b78cdcc989f805909717c5bcfc45e1c7
+    parentId: wrk_2232dfe872b048e8bbd3b6c4f6f4880c
+    modified: 1656343531792
+    created: 1656343520970
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: {}
+    color: null
+    isPrivate: false
+    metaSortKey: 1656343520970
+    _type: environment
+  - _id: jar_99c88d98b78cdcc989f805909717c5bcfc45e1c7
+    parentId: wrk_2232dfe872b048e8bbd3b6c4f6f4880c
+    modified: 1656343520991
+    created: 1656343520991
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_2bfe7850695b43b9932e60b327dd3301
+    parentId: wrk_2232dfe872b048e8bbd3b6c4f6f4880c
+    modified: 1656343520584
+    created: 1656343520584
+    fileName: My Collection
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_b4ef8bb1aa624f37a6837d2b069e0dd0
+    parentId: env_99c88d98b78cdcc989f805909717c5bcfc45e1c7
+    modified: 1656362742543
+    created: 1656343534548
+    name: local
+    data:
+      url: http://localhost:8000/
+      auth_token: 6540119565f23793edbb7888d17d06fd9f445fcc4a8631b7e3ce1076272a3e4f
+    dataPropertyOrder:
+      "&":
+        - url
+        - auth_token
+    color: "#00f0e0"
+    isPrivate: false
+    metaSortKey: 1656343534548
+    _type: environment
