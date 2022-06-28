@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.db import transaction
 from authentication.serializers import UserSerializer
 
 
@@ -16,6 +17,7 @@ class UserAPIView(APIView):
         user_ser = self.serializer_class(request.user)
         return Response(user_ser.data)
 
+    @transaction.atomic
     def put(self, request):
         """update user"""
         user_ser = self.serializer_class(request.user, data=request.data, partial=True)

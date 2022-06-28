@@ -92,6 +92,7 @@ class Email(models.Model):
     """
     Email Model
     """
+    main = models.BooleanField(default=False)
     email = models.EmailField(unique=True)
     user = models.ForeignKey(
         User,
